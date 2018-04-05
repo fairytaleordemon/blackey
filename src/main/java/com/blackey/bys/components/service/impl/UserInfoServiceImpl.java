@@ -51,8 +51,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         try {
             WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(form.getCode());
             Gson gson = new Gson();
-            String sessionKey = (String) request.getSession().getAttribute("wxSessionKey");
-            UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(sessionKey,form.getEncrypData(),form.getVi()),UserInfo.class);
+            UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(result.getSessionKey(),form.getEncrypData(),form.getVi()),UserInfo.class);
             userInfoRepo.save(userInfo);
 
             return result;
