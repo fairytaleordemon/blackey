@@ -9,6 +9,8 @@ import com.blackey.bys.components.repository.UserInfoRepo;
 import com.blackey.bys.components.service.UserInfoService;
 import com.blackey.bys.dto.UserInfoForm;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,11 +51,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public WxMaJscode2SessionResult login(HttpServletRequest request,UserInfoForm form) throws WxErrorException{
+    public WxMaJscode2SessionResult login(HttpServletRequest request,UserInfoForm form) throws WxErrorException {
 
         WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(form.getCode());
+        String sessionKey = result.getSessionKey();
+
         Gson gson = new Gson();
-        UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(form.getEncrypData(),result.getSessionKey(),form.getVi()),UserInfo.class);
+        String resultStr = WXUtils.decryptWxUser(form.getEncrypData(),sessionKey,form.getIv());
+
+        String userJson = gson.fromJson(resultStr, JsonObject.class).get("userInfo").getAsString();
+        UserInfo userInfo =  gson.fromJson(userJson,UserInfo.class);
         userInfoRepo.save(userInfo);
         return result;
 
@@ -62,7 +69,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfoForm saveWxUserForm(HttpServletRequest request,String encryptData,String vi) {
         Gson gson = new Gson();
-
         String sessionKey = (String) request.getSession().getAttribute("wxSessionKey");
         UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(sessionKey,encryptData,vi),UserInfo.class);
         userInfoRepo.save(userInfo);
@@ -72,6 +78,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo selectByOpenId(String openId) {
         return userInfoRepo.selectByOpenId(openId);
+    }
+
+    public static void main(String[] args) {
+
+        String usr = "{\"msg\":\"解密成功\",\"userInfo\":\"{\\\"openId\\\":\\\"o8krx5BY-W5sbaf7Nykm0lZ3EGVM\\\",\\\"nickName\\\":\\\"blackey\\\",\\\"gender\\\":1,\\\"language\\\":\\\"zh_CN\\\",\\\"city\\\":\\\"\\\",\\\"province\\\":\\\"Shanghai\\\",\\\"country\\\":\\\"China\\\",\\\"avatarUrl\\\":\\\"https://wx.qlogo.cn/mmopen/vi_32/5zqwzaLyg7aJAvCvvJ8wjicHq7ibVc9rMYNCkOwj9pjgRJmaOUdxSBf4uofgMOF8qNmW214ZxvDLydam7rg8L2fQ/0\\\",\\\"watermark\\\":{\\\"timestamp\\\":1522931773,\\\"appid\\\":\\\"wx7dc1e3b215af00d3\\\"}}\",\"status\":\"1\"}";
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(usr, JsonObject.class);
+        String userJson = jsonObject.get("userInfo").getAsString();
+        UserInfo userInfo  = gson.fromJson(userJson,UserInfo.class);
+        System.out.println(userInfo);
     }
 
 

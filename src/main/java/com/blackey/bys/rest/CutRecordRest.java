@@ -20,14 +20,14 @@ public class CutRecordRest extends BaseRest{
     private CutRecordService cutRecordService;
 
 
-    @RequestMapping("/blackey/save")
+    @RequestMapping("/save")
     @PostMapping
     public Result save(String openId,String firendId,String activity){
         cutRecordService.saveRelation(openId,firendId,activity);
         return success();
     }
 
-    @RequestMapping("/blackey/list")
+    @RequestMapping("/list")
     @PostMapping
     public Result list(String openId,String activity){
         List<CutRecord> cutRecords =cutRecordService.findFirend(openId,activity);

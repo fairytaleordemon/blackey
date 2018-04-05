@@ -4,6 +4,7 @@ package com.blackey.bys.components.model;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public class UserInfo {
 
     private String telephone;
 
+    @Column(unique = true,length = 50)
     private String openId;
 
     private String uniqueId;

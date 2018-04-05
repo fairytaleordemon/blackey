@@ -28,7 +28,7 @@ public class UserInfoForm {
 
     private String encrypData;
 
-    private String vi;
+    private String iv;
 
     public String getEncrypData() {
         return encrypData;
@@ -38,12 +38,12 @@ public class UserInfoForm {
         this.encrypData = encrypData;
     }
 
-    public String getVi() {
-        return vi;
+    public String getIv() {
+        return iv;
     }
 
-    public void setVi(String vi) {
-        this.vi = vi;
+    public void setIv(String iv) {
+        this.iv = iv;
     }
 
     public String getCode() {

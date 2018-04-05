@@ -4,6 +4,7 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.blackey.bys.common.Result;
 import com.blackey.bys.components.model.UserInfo;
 import com.blackey.bys.dto.UserInfoForm;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import org.apache.http.HttpRequest;
 import org.springframework.data.domain.Page;

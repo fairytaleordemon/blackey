@@ -7,6 +7,7 @@ import com.blackey.bys.common.Result;
 import com.blackey.bys.components.service.UserInfoService;
 import com.blackey.bys.components.service.FileUploadService;
 import com.blackey.bys.dto.UserInfoForm;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
