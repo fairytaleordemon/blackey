@@ -10,7 +10,5 @@ public interface BusinessService {
 
     void save(BusinessForm form);
 
-    void update(String id, String score, String confirm);
-
     Page<Business> page(Pageable pageable);
 }

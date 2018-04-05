@@ -7,9 +7,9 @@ public class RecordForm {
 
     private String id;
 
-    private String businessId;
+    private String activityNo;
 
-    private String userId;
+    private String openId;
 
 
     public String getId() {
@@ -20,20 +20,19 @@ public class RecordForm {
         this.id = id;
     }
 
-    public String getBusinessId() {
-        return businessId;
+    public String getActivityNo() {
+        return activityNo;
     }
 
-    public void setBusinessId(String businessId) {
-        this.businessId = businessId;
+    public void setActivityNo(String activityNo) {
+        this.activityNo = activityNo;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
-
 }

@@ -38,8 +38,8 @@ public class ActivityServiceImpl implements ActivityService {
 
     public void save(ActivityForm form){
         Activity activity = new Activity();
-
         Business business = new Business();
+
         business.setId(form.getBusiness_id());
         activity.setBusiness(business);
         BeanUtils.copyProperties(form,activity);

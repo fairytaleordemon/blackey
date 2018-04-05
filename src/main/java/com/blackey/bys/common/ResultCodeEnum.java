@@ -43,7 +43,11 @@ public enum ResultCodeEnum implements ResultCode {
     /**
      * s签名失败的返回值
      */
-    SIGN_ERROR(400002, "签名失败。")
+    SIGN_ERROR(400002, "签名失败。"),
+    /**
+     * 核销码错误
+     */
+    SALECODE_INCORRECT(409, "核销失败、核销码错误！")
     ;
     private int code;
     private String msg;

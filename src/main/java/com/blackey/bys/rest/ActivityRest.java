@@ -46,7 +46,6 @@ public class ActivityRest extends BaseRest{
     @RequestMapping("/save")
     @PostMapping
     public Result save(ActivityForm form,@RequestParam("file") MultipartFile file){
-
         form.setMainPage(fileUploadService.uploadFile(request,file));
         activityService.save(form);
         return success();

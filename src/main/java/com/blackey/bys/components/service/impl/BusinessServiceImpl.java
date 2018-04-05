@@ -28,11 +28,6 @@ public class BusinessServiceImpl implements BusinessService{
         businessRepo.save(challenge);
     }
 
-    @Override
-    public void update(String id,String score, String confirm) {
-        Business challenge = businessRepo.getOne(id);
-        businessRepo.save(challenge);
-    }
 
     @Override
     public Page<Business> page(Pageable pageable) {

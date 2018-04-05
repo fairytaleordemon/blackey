@@ -30,12 +30,6 @@ public class BusinessRest extends BaseRest{
         return success();
     }
 
-    @RequestMapping("/blackey/update")
-    @PostMapping
-    public Result update(String id,String score,String confirm){
-        businessService.update(id, score, confirm);
-        return success();
-    }
 
     @RequestMapping("/blackey/page")
     @PostMapping
