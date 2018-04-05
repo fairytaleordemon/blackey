@@ -47,7 +47,11 @@ public enum ResultCodeEnum implements ResultCode {
     /**
      * 核销码错误
      */
-    SALECODE_INCORRECT(409, "核销失败、核销码错误！")
+    SALECODE_INCORRECT(409, "核销失败、核销码错误！"),
+    /**
+     * 同一次活动不能多次帮好友助力
+     */
+    REPEAT_FASE(410, "同一次活动不能多次帮好友助力！")
     ;
     private int code;
     private String msg;

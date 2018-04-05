@@ -3,6 +3,7 @@ package com.blackey.bys.rest;
 
 import com.blackey.bys.common.BaseRest;
 import com.blackey.bys.common.Result;
+import com.blackey.bys.common.exception.BusinessException;
 import com.blackey.bys.components.model.CutRecord;
 import com.blackey.bys.components.service.CutRecordService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,15 +23,19 @@ public class CutRecordRest extends BaseRest{
 
     @RequestMapping("/save")
     @PostMapping
-    public Result save(String openId,String firendId,String activity){
-        cutRecordService.saveRelation(openId,firendId,activity);
-        return success();
+    public Result save(String openId,String friendId,String activity){
+        try{
+            cutRecordService.saveRelation(openId,friendId,activity);
+            return success();
+        } catch (BusinessException e){
+            return failure(e.getMessage());
+        }
     }
 
     @RequestMapping("/list")
     @PostMapping
     public Result list(String openId,String activity){
-        List<CutRecord> cutRecords =cutRecordService.findFirend(openId,activity);
+        List<CutRecord> cutRecords =cutRecordService.findFriend(openId,activity);
 
         return success(cutRecords);
     }

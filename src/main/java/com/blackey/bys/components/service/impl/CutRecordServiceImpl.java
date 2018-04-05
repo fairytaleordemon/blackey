@@ -1,5 +1,7 @@
 package com.blackey.bys.components.service.impl;
 
+import com.blackey.bys.common.ResultCodeEnum;
+import com.blackey.bys.common.exception.BusinessException;
 import com.blackey.bys.components.model.Activity;
 import com.blackey.bys.components.model.CutRecord;
 import com.blackey.bys.components.model.UserInfo;
@@ -26,21 +28,25 @@ public class CutRecordServiceImpl implements CutRecordService{
 
 
     @Override
-    public void saveRelation(String openId, String firendId,String activityId) {
+    public void saveRelation(String openId, String friendId,String activityId) throws BusinessException {
+        if (cutRecordRepo.selectRepeat(openId, friendId, activityId) != null){
+            throw new BusinessException(ResultCodeEnum.REPEAT_FASE);
+        }
+
         UserInfo userInfo = userInfoRepo.selectByOpenId(openId);
-        UserInfo firendUserInfo = userInfoRepo.selectByOpenId(firendId);
+        UserInfo friendUserInfo = userInfoRepo.selectByOpenId(friendId);
         Activity activity = activityRepo.getOne(activityId);
 
         CutRecord cutRecord = new CutRecord();
         cutRecord.setUserinfo(userInfo);
-        cutRecord.setFriend(firendUserInfo);
+        cutRecord.setFriend(friendUserInfo);
         cutRecord.setActivity(activity);
 
         cutRecordRepo.save(cutRecord);
     }
 
     @Override
-    public List<CutRecord> findFirend(String openId, String activity) {
+    public List<CutRecord> findFriend(String openId, String activity) {
         return cutRecordRepo.selectByOpenId(openId);
     }
 
