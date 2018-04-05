@@ -11,7 +11,9 @@ import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -43,7 +45,9 @@ public class ActivityRest extends BaseRest{
 
     @RequestMapping("/save")
     @PostMapping
-    public Result save(ActivityForm form){
+    public Result save(ActivityForm form,@RequestParam("file") MultipartFile file){
+
+        form.setMainPage(fileUploadService.uploadFile(request,file));
         activityService.save(form);
         return success();
     }

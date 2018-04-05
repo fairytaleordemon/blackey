@@ -40,6 +40,8 @@ public class ActivityForm {
 
     private String name;
 
+    private String mainPage;
+
 
     public String getId() {
         return id;
@@ -121,4 +123,11 @@ public class ActivityForm {
         this.name = name;
     }
 
+    public String getMainPage() {
+        return mainPage;
+    }
+
+    public void setMainPage(String mainPage) {
+        this.mainPage = mainPage;
+    }
 }
