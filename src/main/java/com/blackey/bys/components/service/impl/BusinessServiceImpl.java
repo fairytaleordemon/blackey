@@ -34,5 +34,8 @@ public class BusinessServiceImpl implements BusinessService{
         return businessRepo.findAll(pageable);
     }
 
-
+    @Override
+    public List<Business> list() {
+        return businessRepo.findAll();
+    }
 }

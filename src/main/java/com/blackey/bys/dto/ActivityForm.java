@@ -1,11 +1,13 @@
 package com.blackey.bys.dto;
 
 import com.blackey.bys.components.model.Business;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivityForm {
 
     private String id;

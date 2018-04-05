@@ -23,7 +23,7 @@ public class BusinessRest extends BaseRest{
     private FileUploadService fileUploadService;
 
 
-    @RequestMapping("/blackey/save")
+    @RequestMapping("/save")
     @PostMapping
     public Result save(@ModelAttribute  BusinessForm form,@RequestParam(value = "file",required = false) MultipartFile file){
         if (!(file == null)) {
@@ -34,10 +34,16 @@ public class BusinessRest extends BaseRest{
     }
 
 
-    @RequestMapping("/blackey/page")
+    @RequestMapping("/page")
     @PostMapping
     public Result page(Pageable pageable){
         return success(businessService.page(pageable));
+    }
+
+    @RequestMapping("/list")
+    @PostMapping
+    public Object list(){
+        return businessService.list();
     }
 
 }
