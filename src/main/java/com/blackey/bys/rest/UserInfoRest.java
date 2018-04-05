@@ -7,6 +7,7 @@ import com.blackey.bys.common.Result;
 import com.blackey.bys.components.service.UserInfoService;
 import com.blackey.bys.components.service.FileUploadService;
 import com.blackey.bys.dto.UserInfoForm;
+import me.chanjar.weixin.common.exception.WxErrorException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +37,8 @@ public class UserInfoRest extends BaseRest{
     public Result login(@ModelAttribute  UserInfoForm form,HttpServletRequest request){
         try {
             return success(userInfoService.login(request,form));
-        } catch (Exception e){
-            return failure();
+        } catch (WxErrorException e){
+            return failure(e.getMessage());
         }
     }
 

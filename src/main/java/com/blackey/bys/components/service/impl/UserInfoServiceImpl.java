@@ -10,6 +10,8 @@ import com.blackey.bys.components.service.UserInfoService;
 import com.blackey.bys.dto.UserInfoForm;
 import com.google.gson.Gson;
 import me.chanjar.weixin.common.exception.WxErrorException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,18 +49,14 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public WxMaJscode2SessionResult login(HttpServletRequest request,UserInfoForm form) {
-        try {
-            WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(form.getCode());
-            Gson gson = new Gson();
-            UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(result.getSessionKey(),form.getEncrypData(),form.getVi()),UserInfo.class);
-            userInfoRepo.save(userInfo);
+    public WxMaJscode2SessionResult login(HttpServletRequest request,UserInfoForm form) throws WxErrorException{
 
-            return result;
-        } catch (WxErrorException e) {
-            e.printStackTrace();
-        }
-        return null;
+        WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(form.getCode());
+        Gson gson = new Gson();
+        UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(form.getEncrypData(),result.getSessionKey(),form.getVi()),UserInfo.class);
+        userInfoRepo.save(userInfo);
+        return result;
+
     }
 
     @Override
@@ -68,8 +66,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         String sessionKey = (String) request.getSession().getAttribute("wxSessionKey");
         UserInfo userInfo =  gson.fromJson(WXUtils.decryptWxUser(sessionKey,encryptData,vi),UserInfo.class);
         userInfoRepo.save(userInfo);
-
-        System.out.println(userInfo);
         return null;
     }
 
@@ -77,4 +73,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfo selectByOpenId(String openId) {
         return userInfoRepo.selectByOpenId(openId);
     }
+
+
 }

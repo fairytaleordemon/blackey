@@ -4,6 +4,7 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.blackey.bys.common.Result;
 import com.blackey.bys.components.model.UserInfo;
 import com.blackey.bys.dto.UserInfoForm;
+import me.chanjar.weixin.common.exception.WxErrorException;
 import org.apache.http.HttpRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,7 @@ public interface UserInfoService {
 
     Page<UserInfo> page(Pageable pageable);
 
-    WxMaJscode2SessionResult login(HttpServletRequest request,UserInfoForm form);
+    WxMaJscode2SessionResult login(HttpServletRequest request,UserInfoForm form)  throws WxErrorException;
 
     UserInfoForm saveWxUserForm(HttpServletRequest request,String encryptData,String vi);
 
