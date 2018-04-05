@@ -3,6 +3,7 @@ package com.blackey.bys.rest;
 
 import com.blackey.bys.common.BaseRest;
 import com.blackey.bys.common.Result;
+import com.blackey.bys.common.config.Config;
 import com.blackey.bys.components.model.Activity;
 import com.blackey.bys.components.service.ActivityService;
 import com.blackey.bys.components.service.FileUploadService;
@@ -45,8 +46,11 @@ public class ActivityRest extends BaseRest{
 
     @RequestMapping("/save")
     @PostMapping
-    public Result save(ActivityForm form,@RequestParam("file") MultipartFile file){
-        form.setMainPage(fileUploadService.uploadFile(request,file));
+    public Result save(ActivityForm form,@RequestParam(value = "file",required = false) MultipartFile file){
+        if (!(file == null)){
+            form.setMainPage(Config.domain + fileUploadService.uploadFile(request,file));
+        }
+
         activityService.save(form);
         return success();
     }

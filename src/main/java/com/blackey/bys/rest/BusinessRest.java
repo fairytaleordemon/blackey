@@ -2,6 +2,7 @@ package com.blackey.bys.rest;
 
 import com.blackey.bys.common.BaseRest;
 import com.blackey.bys.common.Result;
+import com.blackey.bys.common.config.Config;
 import com.blackey.bys.components.service.BusinessService;
 import com.blackey.bys.components.service.FileUploadService;
 import com.blackey.bys.dto.BusinessForm;
@@ -24,8 +25,10 @@ public class BusinessRest extends BaseRest{
 
     @RequestMapping("/blackey/save")
     @PostMapping
-    public Result save(@ModelAttribute  BusinessForm form,@RequestParam("file") MultipartFile file){
-        form.setImagePath(fileUploadService.uploadFile(request,file));
+    public Result save(@ModelAttribute  BusinessForm form,@RequestParam(value = "file",required = false) MultipartFile file){
+        if (!(file == null)) {
+            form.setImagePath(Config.domain + fileUploadService.uploadFile(request,file));
+        }
         businessService.save(form);
         return success();
     }
