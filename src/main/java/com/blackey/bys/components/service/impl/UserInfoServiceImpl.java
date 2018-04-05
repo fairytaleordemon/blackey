@@ -55,13 +55,18 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(form.getCode());
         String sessionKey = result.getSessionKey();
-
         Gson gson = new Gson();
         String resultStr = WXUtils.decryptWxUser(form.getEncrypData(),sessionKey,form.getIv());
 
         String userJson = gson.fromJson(resultStr, JsonObject.class).get("userInfo").getAsString();
         UserInfo userInfo =  gson.fromJson(userJson,UserInfo.class);
-        userInfoRepo.save(userInfo);
+
+        UserInfo userInfoDb = userInfoRepo.selectByOpenId(userInfo.getOpenId());
+
+        if (userInfoDb == null){
+            userInfoRepo.save(userInfo);
+        }
+        //TODO 空对象拷贝
         return result;
 
     }

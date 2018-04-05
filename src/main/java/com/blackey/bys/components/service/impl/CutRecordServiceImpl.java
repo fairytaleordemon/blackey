@@ -27,8 +27,8 @@ public class CutRecordServiceImpl implements CutRecordService{
 
     @Override
     public void saveRelation(String openId, String firendId,String activityId) {
-        UserInfo userInfo = userInfoRepo.getOne(openId);
-        UserInfo firendUserInfo = userInfoRepo.getOne(firendId);
+        UserInfo userInfo = userInfoRepo.selectByOpenId(openId);
+        UserInfo firendUserInfo = userInfoRepo.selectByOpenId(firendId);
         Activity activity = activityRepo.getOne(activityId);
 
         CutRecord cutRecord = new CutRecord();

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
-@RequestMapping("/server/activity")
+@RequestMapping("/server/cut")
 @RestController
 public class CutRecordRest extends BaseRest{
 
