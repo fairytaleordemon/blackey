@@ -27,17 +27,17 @@ public class RecordRest extends BaseRest{
         return success();
     }
 
-    @RequestMapping("/blackey/update")
+    @RequestMapping("/update")
     @PostMapping
     public Result update(String id,String code){
         recordService.update(id, code);
         return success();
     }
 
-    @RequestMapping("/blackey/list")
+    @RequestMapping("/list")
     @PostMapping
-    public Result list(Pageable pageable){
-        return success(recordService.pagelist(pageable));
+    public Object list(Pageable pageable){
+        return recordService.pagelist(pageable);
     }
 
 }

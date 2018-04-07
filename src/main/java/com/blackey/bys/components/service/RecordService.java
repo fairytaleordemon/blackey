@@ -11,8 +11,18 @@ import java.util.List;
 
 public interface RecordService {
 
+    /**
+     * 生成订单
+     * @param form
+     */
     void save(RecordForm form);
 
+    /**
+     * 输入核销码进行核销
+     * @param id 订单
+     * @param code 核销码
+     * @throws BusinessException
+     */
     void update(String id,String code) throws BusinessException;
 
     Page<Record> pagelist(Pageable pageable);

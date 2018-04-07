@@ -25,10 +25,13 @@ public class Record {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserInfo userId;
+    private UserInfo user;
 
     private String status;
 
+    /**
+     * 成交价
+     */
     private String price;
 
     public String getStatus() {
@@ -47,12 +50,12 @@ public class Record {
         this.id = id;
     }
 
-    public UserInfo getUserId() {
-        return userId;
+    public UserInfo getUser() {
+        return user;
     }
 
-    public void setUserId(UserInfo userId) {
-        this.userId = userId;
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 
     public String getPrice() {

@@ -40,7 +40,7 @@ public class RecordServiceImpl implements RecordService{
         UserInfo userInfo = userInfoService.selectByOpenId(form.getOpenId());
         Activity activity = activityRepo.getOne(form.getActivityNo());
         record.setActivity(activity);
-        record.setUserId(userInfo);
+        record.setUser(userInfo);
         record.setStatus("待使用");
         recordRepo.save(record);
     }
