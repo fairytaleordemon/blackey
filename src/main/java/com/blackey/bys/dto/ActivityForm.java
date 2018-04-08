@@ -1,11 +1,6 @@
 package com.blackey.bys.dto;
 
-import com.blackey.bys.components.model.Business;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivityForm {
@@ -25,9 +20,9 @@ public class ActivityForm {
     private String discountPrice;
 
     /**
-     * 抢购价
+     * 最低价
      */
-    private String rushPrice;
+    private String lowPrice;
 
     private String stock;
 
@@ -77,12 +72,12 @@ public class ActivityForm {
         this.discountPrice = discountPrice;
     }
 
-    public String getRushPrice() {
-        return rushPrice;
+    public String getLowPrice() {
+        return lowPrice;
     }
 
-    public void setRushPrice(String rushPrice) {
-        this.rushPrice = rushPrice;
+    public void setLowPrice(String lowPrice) {
+        this.lowPrice = lowPrice;
     }
 
     public String getStock() {
